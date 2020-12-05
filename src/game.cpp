@@ -5,31 +5,31 @@
 #include "game.h"
 
 Game::Game(uint width, uint height)
-    : m_Width(width), m_Height(height), m_State(GAME_MENU), m_Keys()
+    : width_(width), height_(height), state_(GAME_MENU), keys_()
 {
 }
 
 Game::~Game()
 {
-    //
+  //
 }
 
 void Game::loadAssets()
 {
-    //
+  //
 }
 
 void Game::processInput(float dt)
 {
-    //
+  //
 }
 
 void Game::update(float dt)
 {
-    //
+  //
 }
 
 void Game::render()
 {
-    //
+  //
 }
