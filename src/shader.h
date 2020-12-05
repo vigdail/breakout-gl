@@ -7,12 +7,9 @@
 
 class Shader
 {
-private:
-  GLuint ID;
-
 public:
   Shader(const char *vertex_source, const char *fragment_source, const char *geometry_source = nullptr);
-  ~Shader();
+  ~Shader(){};
   Shader &Use();
   Shader &SetInt(const char *name, const int value);
   Shader &SetFloat(const char *name, const float value);
@@ -20,5 +17,6 @@ public:
   Shader &SetMat4(const char *name, const glm::mat4 &value);
 
 private:
+  GLuint ID_;
   void CheckCompileErrors(uint object, std::string type);
 };

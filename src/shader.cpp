@@ -25,15 +25,15 @@ Shader::Shader(const char *vertet_source, const char *fragment_source, const cha
     CheckCompileErrors(gShader, "GEOMETRY");
   }
 
-  this->ID = glCreateProgram();
-  glAttachShader(this->ID, vShader);
-  glAttachShader(this->ID, fShader);
+  ID_ = glCreateProgram();
+  glAttachShader(ID_, vShader);
+  glAttachShader(ID_, fShader);
   if (geometry_source != nullptr)
   {
-    glAttachShader(this->ID, gShader);
+    glAttachShader(ID_, gShader);
   }
-  glLinkProgram(this->ID);
-  CheckCompileErrors(this->ID, "PROGRAMM");
+  glLinkProgram(ID_);
+  CheckCompileErrors(ID_, "PROGRAMM");
 
   glDeleteShader(vShader);
   glDeleteShader(fShader);
@@ -45,22 +45,22 @@ Shader::Shader(const char *vertet_source, const char *fragment_source, const cha
 
 Shader &Shader::SetInt(const char *name, int value)
 {
-  glUniform1i(glGetUniformLocation(this->ID, name), value);
+  glUniform1i(glGetUniformLocation(ID_, name), value);
   return *this;
 }
 Shader &Shader::SetFloat(const char *name, float value)
 {
-  glUniform1f(glGetUniformLocation(this->ID, name), value);
+  glUniform1f(glGetUniformLocation(ID_, name), value);
   return *this;
 }
 Shader &Shader::SetVec3(const char *name, const glm::vec3 &value)
 {
-  glUniform3f(glGetUniformLocation(this->ID, name), value.x, value.y, value.z);
+  glUniform3f(glGetUniformLocation(ID_, name), value.x, value.y, value.z);
   return *this;
 }
 Shader &Shader::SetMat4(const char *name, const glm::mat4 &matrix)
 {
-  glUniformMatrix4fv(glGetUniformLocation(this->ID, name), 1, false, glm::value_ptr(matrix));
+  glUniformMatrix4fv(glGetUniformLocation(ID_, name), 1, false, glm::value_ptr(matrix));
   return *this;
 }
 
