@@ -16,10 +16,10 @@ class Game
 public:
   Game(uint width, uint height);
   ~Game();
-  void loadAssets();
-  void processInput(float dt);
-  void update(float dt);
-  void render();
+  void LoadAssets();
+  void ProcessInput(float dt);
+  void Update(float dt);
+  void Render();
 
 private:
   entt::registry registry_;

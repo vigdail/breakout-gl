@@ -14,22 +14,22 @@ Game::~Game()
   //
 }
 
-void Game::loadAssets()
+void Game::LoadAssets()
 {
   //
 }
 
-void Game::processInput(float dt)
+void Game::ProcessInput(float dt)
 {
   //
 }
 
-void Game::update(float dt)
+void Game::Update(float dt)
 {
   //
 }
 
-void Game::render()
+void Game::Render()
 {
   //
 }
