@@ -1,6 +1,9 @@
 #include <iostream>
+#include <string>
+
+#include "game.h"
 
 int main()
 {
-    std::cout << "Hello World!" << std::endl;
+    Game game(800, 600);
 }
