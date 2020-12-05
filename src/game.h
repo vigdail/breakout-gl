@@ -3,6 +3,7 @@
 #include <entt/entt.hpp>
 
 #include "shader.h"
+#include "resource_manager.h"
 
 enum GameState
 {

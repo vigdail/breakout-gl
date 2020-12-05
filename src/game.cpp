@@ -16,7 +16,7 @@ Game::~Game()
 
 void Game::LoadAssets()
 {
-  //
+  Texture texture = ResourceManager::LoadTexture("wall", "../assets/wall.jpg");
 }
 
 void Game::ProcessInput(float dt)

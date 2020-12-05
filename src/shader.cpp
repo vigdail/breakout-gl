@@ -92,3 +92,8 @@ void Shader::CheckCompileErrors(uint object, std::string type)
     }
   }
 }
+
+Shader::~Shader()
+{
+  glDeleteProgram(ID_);
+}
