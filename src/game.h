@@ -25,9 +25,10 @@ public:
   bool IsKeyPressed(uint key);
 
 private:
+  static const uint kKeysCount_ = 1024;
   entt::registry registry_;
   uint width_;
   uint height_;
   GameState state_;
-  bool keys_[1024];
+  bool keys_[kKeysCount_];
 };
