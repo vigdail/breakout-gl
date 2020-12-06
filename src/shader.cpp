@@ -64,7 +64,7 @@ Shader &Shader::SetMat4(const char *name, const glm::mat4 &matrix)
   return *this;
 }
 
-void Shader::CheckCompileErrors(uint object, std::string type)
+void Shader::CheckCompileErrors(uint object, const std::string &type)
 {
   int success;
   const uint kLogLength = 512;

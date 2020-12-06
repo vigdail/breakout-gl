@@ -19,5 +19,5 @@ public:
 
 private:
   GLuint ID_;
-  void CheckCompileErrors(uint object, std::string type);
+  void CheckCompileErrors(uint object, const std::string &type);
 };
