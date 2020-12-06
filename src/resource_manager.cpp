@@ -39,7 +39,7 @@ Shader ResourceManager::loadShaderFromFile(const fs::path &v_shader_path, const 
   try
   {
     std::ifstream vertex_file(v_shader_path);
-    std::ifstream fragment_file(v_shader_path);
+    std::ifstream fragment_file(f_shader_path);
     std::stringstream vertex_stream;
     std::stringstream fragment_stream;
 
