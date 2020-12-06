@@ -19,6 +19,8 @@ Application::Application(unsigned int width, unsigned int height) : game_(width,
     std::cout << "Failed to initialize GLAD" << std::endl;
   }
 
+  glfwSetWindowUserPointer(window_, this);
+
   glfwSetKeyCallback(window_, KeyCallback);
   glfwSetFramebufferSizeCallback(window_, FramebufferSizeCallback);
 
@@ -54,9 +56,18 @@ void Application::Run()
 
 void Application::KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode)
 {
+  auto self = static_cast<Application *>(glfwGetWindowUserPointer(window));
   if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
   {
     glfwSetWindowShouldClose(window, true);
+  }
+  if (action == GLFW_PRESS)
+  {
+    self->game_.SetKeyPressed(key);
+  }
+  else if (action == GLFW_RELEASE)
+  {
+    self->game_.SetKeyReleased(key);
   }
 }
 

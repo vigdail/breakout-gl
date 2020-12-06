@@ -20,6 +20,9 @@ public:
   void ProcessInput(float dt);
   void Update(float dt);
   void Render();
+  void SetKeyPressed(uint key);
+  void SetKeyReleased(uint key);
+  bool IsKeyPressed(uint key);
 
 private:
   entt::registry registry_;
