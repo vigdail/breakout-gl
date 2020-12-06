@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <iostream>
 
 #include <glad/glad.h>
 #include <glm/glm.hpp>
@@ -16,6 +17,10 @@ public:
   Shader &SetFloat(const char *name, const float value);
   Shader &SetVec3(const char *name, const glm::vec3 &value);
   Shader &SetMat4(const char *name, const glm::mat4 &value);
+  void Delete()
+  {
+    glDeleteProgram(ID_);
+  }
 
 private:
   GLuint ID_;

@@ -9,6 +9,10 @@ public:
   ~Texture();
   void Bind();
   void Generate(unsigned int width, unsigned int height, unsigned char *data);
+  void Delete()
+  {
+    glDeleteTextures(1, &ID_);
+  }
 
   unsigned int internal_format;
   unsigned int image_format;

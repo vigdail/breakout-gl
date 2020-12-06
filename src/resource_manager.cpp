@@ -9,6 +9,19 @@
 std::map<std::string, Texture> ResourceManager::textures_;
 std::map<std::string, Shader> ResourceManager::shaders_;
 
+void ResourceManager::Clear()
+{
+  for (auto &[name, shader] : shaders_)
+  {
+    shader.Delete();
+  }
+
+  for (auto &[name, texture] : textures_)
+  {
+    texture.Delete();
+  }
+}
+
 Shader ResourceManager::LoadShader(std::string name, const fs::path &v_shader_path, const fs::path &f_shader_path, const fs::path &g_shader_path)
 {
   shaders_[name] = loadShaderFromFile(v_shader_path, f_shader_path, g_shader_path);

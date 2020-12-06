@@ -3,6 +3,7 @@
 #include <entt/entt.hpp>
 
 #include "resource_manager.h"
+#include "systems/sprite_renderer.h"
 
 enum GameState
 {
@@ -31,4 +32,6 @@ private:
   uint height_;
   GameState state_;
   bool keys_[kKeysCount_];
+
+  SpriteRenderer sprite_renderer_;
 };

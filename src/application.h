@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -15,7 +17,7 @@ public:
 
 private:
   GLFWwindow *window_;
-  Game game_;
+  std::unique_ptr<Game> game_;
   unsigned int width_;
   unsigned int height_;
 

@@ -2,7 +2,7 @@
 
 #include "application.h"
 
-Application::Application(unsigned int width, unsigned int height) : game_(width, height), width_(width), height_(height)
+Application::Application(unsigned int width, unsigned int height) : width_(width), height_(height)
 {
   glfwInit();
 
@@ -26,6 +26,8 @@ Application::Application(unsigned int width, unsigned int height) : game_(width,
 
   glViewport(0, 0, width, height);
   glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
+  game_ = std::make_unique<Game>(width, height);
 }
 
 Application::~Application()
@@ -43,12 +45,12 @@ void Application::Run()
     last_time = current_time;
     glfwPollEvents();
 
-    game_.ProcessInput(delta_time);
+    game_->ProcessInput(delta_time);
 
-    game_.Update(delta_time);
+    game_->Update(delta_time);
 
     glClear(GL_COLOR_BUFFER_BIT);
-    game_.Render();
+    game_->Render();
 
     glfwSwapBuffers(window_);
   }
@@ -63,11 +65,11 @@ void Application::KeyCallback(GLFWwindow *window, int key, int scancode, int act
   }
   if (action == GLFW_PRESS)
   {
-    self->game_.SetKeyPressed(key);
+    self->game_->SetKeyPressed(key);
   }
   else if (action == GLFW_RELEASE)
   {
-    self->game_.SetKeyReleased(key);
+    self->game_->SetKeyReleased(key);
   }
 }
 

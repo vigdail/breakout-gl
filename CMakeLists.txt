@@ -31,7 +31,7 @@ add_library(glad "lib/src/glad.c")
 target_include_directories(glad PRIVATE "lib/include/")
 set(LIBS ${LIBS} glad)
 
-file(GLOB SOURCE "src/**.cpp")
+file(GLOB SOURCE "src/**/*.cpp" "src/*.cpp")
 
 set(GAME "game")
 

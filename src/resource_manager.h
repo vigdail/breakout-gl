@@ -21,6 +21,7 @@ private:
 
 public:
   ResourceManager() = delete;
+  static void Clear();
   static Shader LoadShader(std::string name, const fs::path &v_shader_path, const fs::path &f_shader_path, const fs::path &g_shader_path = "");
   static Shader GetShader(std::string name);
 

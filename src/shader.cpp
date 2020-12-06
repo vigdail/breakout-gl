@@ -1,14 +1,15 @@
 #include <iostream>
+#include <glad/glad.h>
 #include <glm/gtc/type_ptr.hpp>
 
 #include "shader.h"
 
-Shader::Shader(const char *vertet_source, const char *fragment_source, const char *geometry_source)
+Shader::Shader(const char *vertex_source, const char *fragment_source, const char *geometry_source)
 {
   uint vShader, fShader, gShader;
 
   vShader = glCreateShader(GL_VERTEX_SHADER);
-  glShaderSource(vShader, 1, &vertet_source, NULL);
+  glShaderSource(vShader, 1, &vertex_source, NULL);
   glCompileShader(vShader);
   CheckCompileErrors(vShader, "VERTEX");
 
@@ -41,6 +42,12 @@ Shader::Shader(const char *vertet_source, const char *fragment_source, const cha
   {
     glDeleteShader(fShader);
   }
+}
+
+Shader &Shader::Use()
+{
+  glUseProgram(ID_);
+  return *this;
 }
 
 Shader &Shader::SetInt(const char *name, int value)
@@ -93,7 +100,4 @@ void Shader::CheckCompileErrors(uint object, const std::string &type)
   }
 }
 
-Shader::~Shader()
-{
-  glDeleteProgram(ID_);
-}
+Shader::~Shader() {}
