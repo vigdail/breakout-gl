@@ -19,8 +19,11 @@ Application::Application(unsigned int width, unsigned int height) : game_(width,
     std::cout << "Failed to initialize GLAD" << std::endl;
   }
 
-  glfwSetKeyCallback(window_, key_callback);
-  glfwSetFramebufferSizeCallback(window_, framebuffer_size_callback);
+  glfwSetKeyCallback(window_, KeyCallback);
+  glfwSetFramebufferSizeCallback(window_, FramebufferSizeCallback);
+
+  glViewport(0, 0, width, height);
+  glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 }
 
 Application::~Application()
@@ -30,13 +33,27 @@ Application::~Application()
 
 void Application::Run()
 {
+  float last_time = 0.0f;
+  float delta_time = 0.0f;
   while (!glfwWindowShouldClose(window_))
   {
+    float current_time = glfwGetTime();
+    delta_time = current_time - last_time;
+    last_time = current_time;
     glfwPollEvents();
+
+    game_.ProcessInput(delta_time);
+
+    game_.Update(delta_time);
+
+    glClear(GL_COLOR_BUFFER_BIT);
+    game_.Render();
+
+    glfwSwapBuffers(window_);
   }
 }
 
-void Application::key_callback(GLFWwindow *window, int key, int scancode, int action, int mode)
+void Application::KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode)
 {
   if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
   {
@@ -44,6 +61,7 @@ void Application::key_callback(GLFWwindow *window, int key, int scancode, int ac
   }
 }
 
-void Application::framebuffer_size_callback(GLFWwindow *window, int width, int height)
+void Application::FramebufferSizeCallback(GLFWwindow *window, int width, int height)
 {
+  glViewport(0, 0, width, height);
 }

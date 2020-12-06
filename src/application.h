@@ -19,6 +19,6 @@ private:
   unsigned int width_;
   unsigned int height_;
 
-  static void framebuffer_size_callback(GLFWwindow *window, int width, int height);
-  static void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode);
+  static void FramebufferSizeCallback(GLFWwindow *window, int width, int height);
+  static void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode);
 };
