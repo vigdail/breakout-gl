@@ -7,6 +7,7 @@
 Game::Game(uint width, uint height)
     : width_(width), height_(height), state_(GAME_MENU), keys_()
 {
+  std::cout << "Game was created" << std::endl;
 }
 
 Game::~Game()

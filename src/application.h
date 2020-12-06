@@ -1,0 +1,24 @@
+#pragma once
+
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
+#include "game.h"
+
+class Application
+{
+public:
+  Application() : Application(800, 600){};
+  Application(unsigned int width, unsigned int height);
+  ~Application();
+  void Run();
+
+private:
+  GLFWwindow *window_;
+  Game game_;
+  unsigned int width_;
+  unsigned int height_;
+
+  static void framebuffer_size_callback(GLFWwindow *window, int width, int height);
+  static void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode);
+};

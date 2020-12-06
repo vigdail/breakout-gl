@@ -1,9 +1,10 @@
 #include <iostream>
 #include <string>
 
-#include "game.h"
+#include "application.h"
 
 int main()
 {
-  Game game(800, 600);
+  Application app;
+  app.Run();
 }
