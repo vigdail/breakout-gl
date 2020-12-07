@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include <glad/glad.h>
+#include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
 
@@ -33,8 +34,9 @@ void SpriteRenderer::Render(entt::registry &registry)
   for (auto &entity : view)
   {
     glBindTexture(GL_TEXTURE_2D, registry.get<Sprite>(entity).texture);
-    glm::mat4 transform = registry.get<Transform>(entity).Model();
-    shader.SetMat4("model", transform);
+    auto transform = registry.get<Transform>(entity);
+    glm::mat4 model = transform.Model();
+    shader.SetMat4("model", model);
 
     glDrawArrays(GL_TRIANGLES, 0, 6);
   }
