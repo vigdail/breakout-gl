@@ -92,7 +92,7 @@ Shader ResourceManager::loadShaderFromFile(const std::filesystem::path &v_shader
 
   const char *v_shader_code = vertex_code.c_str();
   const char *f_shader_code = fragment_code.c_str();
-  const char *g_shader_code = (g_shader_path != "" ? geom_code.c_str() : nullptr);
+  const char *g_shader_code = (g_shader_path.has_value() ? geom_code.c_str() : nullptr);
 
   return Shader(v_shader_code, f_shader_code, g_shader_code);
 }
