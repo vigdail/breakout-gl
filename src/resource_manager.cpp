@@ -22,7 +22,9 @@ void ResourceManager::Clear()
   }
 }
 
-Shader ResourceManager::LoadShader(std::string name, const fs::path &v_shader_path, const fs::path &f_shader_path, const fs::path &g_shader_path)
+Shader ResourceManager::LoadShader(std::string name, const std::filesystem::path &v_shader_path,
+                                   const std::filesystem::path &f_shader_path,
+                                   const std::optional<std::filesystem::path> g_shader_path)
 {
   shaders_[name] = loadShaderFromFile(v_shader_path, f_shader_path, g_shader_path);
   return shaders_[name];
@@ -33,7 +35,7 @@ Shader ResourceManager::GetShader(std::string name)
   return shaders_[name];
 }
 
-Texture ResourceManager::LoadTexture(std::string name, const fs::path &path)
+Texture ResourceManager::LoadTexture(std::string name, const std::filesystem::path &path)
 {
   textures_[name] = loadTextureFromFile(path);
   return textures_[name];
@@ -43,7 +45,9 @@ Texture ResourceManager::GetTexture(std::string name)
   return textures_[name];
 }
 
-Shader ResourceManager::loadShaderFromFile(const fs::path &v_shader_path, const fs::path &f_shader_path, const fs::path &g_shader_path)
+Shader ResourceManager::loadShaderFromFile(const std::filesystem::path &v_shader_path,
+                                           const std::filesystem::path &f_shader_path,
+                                           const std::optional<std::filesystem::path> g_shader_path)
 {
   std::string vertex_code;
   std::string fragment_code;
@@ -68,9 +72,9 @@ Shader ResourceManager::loadShaderFromFile(const fs::path &v_shader_path, const 
     vertex_code = vertex_stream.str();
     fragment_code = fragment_stream.str();
 
-    if (g_shader_path != "")
+    if (g_shader_path.has_value())
     {
-      std::ifstream geom_file(g_shader_path);
+      std::ifstream geom_file(*g_shader_path);
       std::stringstream geom_stream;
 
       geom_file.exceptions(std::fstream::failbit | std::fstream::badbit);
@@ -93,7 +97,7 @@ Shader ResourceManager::loadShaderFromFile(const fs::path &v_shader_path, const 
   return Shader(v_shader_code, f_shader_code, g_shader_code);
 }
 
-Texture ResourceManager::loadTextureFromFile(const fs::path &path)
+Texture ResourceManager::loadTextureFromFile(const std::filesystem::path &path)
 {
   int width;
   int height;
