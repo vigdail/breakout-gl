@@ -24,6 +24,9 @@ Application::Application(unsigned int width, unsigned int height) : width_(width
   glfwSetKeyCallback(window_, KeyCallback);
   glfwSetFramebufferSizeCallback(window_, FramebufferSizeCallback);
 
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
   glViewport(0, 0, width, height);
   glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
