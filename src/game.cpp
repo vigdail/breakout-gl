@@ -8,13 +8,13 @@
 const uint Game::kKeysCount_;
 
 Game::Game(uint width, uint height)
-    : width_(width), height_(height), state_(GAME_MENU), keys_(), sprite_renderer_()
+    : width_(width), height_(height), state_(GAME_MENU), keys_(), sprite_renderer_(width, height)
 {
   LoadAssets();
 
   auto entity = registry_.create();
   registry_.emplace<Transform>(entity, Transform());
-  registry_.emplace<Sprite>(entity);
+  registry_.emplace<Sprite>(entity, ResourceManager::GetTexture("paddle"));
 }
 
 Game::~Game()
@@ -25,6 +25,7 @@ Game::~Game()
 void Game::LoadAssets()
 {
   ResourceManager::LoadShader("sprite", "../assets/shaders/sprite.vs", "../assets/shaders/sprite.fs");
+  ResourceManager::LoadTexture("paddle", "../assets/textures/paddle.png");
 }
 
 void Game::ProcessInput(float dt)

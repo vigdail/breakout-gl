@@ -1,15 +1,13 @@
 #include <iostream>
 
 #include <glad/glad.h>
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-#include <glm/ext.hpp>
 
 #include "sprite_renderer.h"
 #include "../components.h"
 #include "../resource_manager.h"
 
-SpriteRenderer::SpriteRenderer()
+SpriteRenderer::SpriteRenderer(unsigned int width, unsigned int height)
+    : projection_(glm::ortho(0.0f, static_cast<float>(width), static_cast<float>(height), 0.0f, -1.0f, 1.0f))
 {
   InitVAO();
 }
@@ -20,23 +18,25 @@ SpriteRenderer::~SpriteRenderer()
 
 void SpriteRenderer::Render(entt::registry &registry)
 {
-  glm::mat4 projection = glm::ortho(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f);
   glActiveTexture(GL_TEXTURE0);
   Shader shader = ResourceManager::GetShader("sprite");
   shader
       .Use()
-      .SetMat4("projection", projection)
-      .SetVec3("color", glm::vec3(1.0f, 0.0f, 0.0f));
+      .SetMat4("projection", projection_);
   glBindVertexArray(VAO_);
 
   auto view = registry.view<Transform, Sprite>();
 
   for (auto &entity : view)
   {
-    glBindTexture(GL_TEXTURE_2D, registry.get<Sprite>(entity).texture);
+    auto sprite = registry.get<Sprite>(entity);
+    sprite.texture.Bind();
     auto transform = registry.get<Transform>(entity);
+    transform.position = glm::vec3(400.0f, 300.0f, 0.0f);
     glm::mat4 model = transform.Model();
-    shader.SetMat4("model", model);
+    shader
+        .SetMat4("model", model)
+        .SetVec3("color", sprite.color);
 
     glDrawArrays(GL_TRIANGLES, 0, 6);
   }
