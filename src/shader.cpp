@@ -34,7 +34,7 @@ Shader::Shader(const char *vertex_source, const char *fragment_source, const cha
     glAttachShader(ID_, gShader);
   }
   glLinkProgram(ID_);
-  CheckCompileErrors(ID_, "PROGRAMM");
+  CheckCompileErrors(ID_, "PROGRAM");
 
   glDeleteShader(vShader);
   glDeleteShader(fShader);
@@ -73,9 +73,9 @@ Shader &Shader::SetMat4(const char *name, const glm::mat4 &matrix)
 
 void Shader::CheckCompileErrors(uint object, const std::string &type)
 {
-  int success;
+  int success = false;
   const uint kLogLength = 512;
-  char infoLog[kLogLength];
+  char infoLog[kLogLength] = {0};
   if (type != "PROGRAM")
   {
     glGetShaderiv(object, GL_COMPILE_STATUS, &success);
@@ -86,16 +86,16 @@ void Shader::CheckCompileErrors(uint object, const std::string &type)
                 << infoLog << "\n -- ------------------------------------ -- "
                 << std::endl;
     }
-    else
+  }
+  else
+  {
+    glGetProgramiv(object, GL_LINK_STATUS, &success);
+    if (!success)
     {
-      glGetProgramiv(object, GL_LINK_STATUS, &success);
-      if (!success)
-      {
-        glGetProgramInfoLog(object, kLogLength, NULL, infoLog);
-        std::cout << "ERROR::SHADER: Linking error: \n"
-                  << infoLog << "\n -- --------------------------------- --"
-                  << std::endl;
-      }
+      glGetProgramInfoLog(object, kLogLength, NULL, infoLog);
+      std::cout << "ERROR::SHADER: Linking error: \n"
+                << infoLog << "\n -- --------------------------------- --"
+                << std::endl;
     }
   }
 }
