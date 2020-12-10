@@ -32,7 +32,6 @@ void SpriteRenderer::Render(entt::registry &registry)
     auto sprite = registry.get<Sprite>(entity);
     sprite.texture.Bind();
     auto transform = registry.get<Transform>(entity);
-    transform.position = glm::vec3(400.0f, 300.0f, 0.0f);
     glm::mat4 model = transform.Model();
     shader
         .SetMat4("model", model)

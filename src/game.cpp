@@ -4,7 +4,8 @@
 
 #include "application.h"
 #include "game.h"
-#include "components.h"
+#include "entity_factory.h"
+
 const uint Game::kKeysCount_;
 
 Game::Game(uint width, uint height)
@@ -12,9 +13,10 @@ Game::Game(uint width, uint height)
 {
   LoadAssets();
 
-  auto entity = registry_.create();
-  registry_.emplace<Transform>(entity, Transform());
-  registry_.emplace<Sprite>(entity, ResourceManager::GetTexture("paddle"));
+  EntityFactory::CreatePaddle(registry_);
+  EntityFactory::CreateBlock(registry_, glm::vec2(0.0f), 2);
+  EntityFactory::CreateBlock(registry_, glm::vec2(128.0f), 3);
+  EntityFactory::CreateBlock(registry_, glm::vec2(256.0f), 4);
 }
 
 Game::~Game()
@@ -25,7 +27,9 @@ Game::~Game()
 void Game::LoadAssets()
 {
   ResourceManager::LoadShader("sprite", "../assets/shaders/sprite.vs", "../assets/shaders/sprite.fs");
+
   ResourceManager::LoadTexture("paddle", "../assets/textures/paddle.png");
+  ResourceManager::LoadTexture("block", "../assets/textures/block.png");
 }
 
 void Game::ProcessInput(float dt)
