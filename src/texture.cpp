@@ -29,7 +29,3 @@ void Texture::Bind()
 {
   glBindTexture(GL_TEXTURE_2D, ID_);
 }
-
-Texture::~Texture()
-{
-}

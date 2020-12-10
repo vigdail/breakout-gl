@@ -6,7 +6,6 @@ class Texture
 {
 public:
   Texture();
-  ~Texture();
   void Bind();
   void Generate(unsigned int width, unsigned int height, unsigned char *data);
   void Delete()

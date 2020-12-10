@@ -99,5 +99,3 @@ void Shader::CheckCompileErrors(uint object, const std::string &type)
     }
   }
 }
-
-Shader::~Shader() {}

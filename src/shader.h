@@ -11,7 +11,6 @@ class Shader
 public:
   Shader(){};
   Shader(const char *vertex_source, const char *fragment_source, const char *geometry_source = nullptr);
-  ~Shader();
   Shader &Use();
   Shader &SetInt(const char *name, const int value);
   Shader &SetFloat(const char *name, const float value);
