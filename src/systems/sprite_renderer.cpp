@@ -12,10 +12,6 @@ SpriteRenderer::SpriteRenderer(unsigned int width, unsigned int height)
   InitVAO();
 }
 
-SpriteRenderer::~SpriteRenderer()
-{
-}
-
 void SpriteRenderer::Render(entt::registry &registry)
 {
   glActiveTexture(GL_TEXTURE0);

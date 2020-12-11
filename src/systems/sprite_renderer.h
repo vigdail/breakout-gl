@@ -9,7 +9,6 @@ class SpriteRenderer
 {
 public:
   SpriteRenderer(unsigned int width, unsigned int height);
-  ~SpriteRenderer();
   void Render(entt::registry &registry);
 
 private:
