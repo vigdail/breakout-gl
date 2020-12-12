@@ -17,9 +17,11 @@ Game::Game(uint width, uint height)
   LoadAssets();
 
   EntityFactory::CreatePaddle(registry_);
-  EntityFactory::CreateBlock(registry_, glm::vec2(0.0f), 2);
-  EntityFactory::CreateBlock(registry_, glm::vec2(128.0f), 3);
-  EntityFactory::CreateBlock(registry_, glm::vec2(256.0f), 4);
+  EntityFactory::CreateBlock(registry_, glm::vec2(0.0f), BlockType::RED);
+  EntityFactory::CreateBlock(registry_, glm::vec2(128.0f), BlockType::GREEN);
+  EntityFactory::CreateBlock(registry_, glm::vec2(256.0f), BlockType::BLUE);
+  EntityFactory::CreateBlock(registry_, glm::vec2(0.0f, 128.0f),
+                             BlockType::UNBREAKABLE);
 }
 
 Game::~Game() { ResourceManager::Clear(); }
@@ -30,6 +32,8 @@ void Game::LoadAssets() {
 
   ResourceManager::LoadTexture("paddle", "../assets/textures/paddle.png");
   ResourceManager::LoadTexture("block", "../assets/textures/block.png");
+  ResourceManager::LoadTexture("block_solid",
+                               "../assets/textures/block_solid.png");
 }
 
 void Game::ProcessInput(float dt) {
