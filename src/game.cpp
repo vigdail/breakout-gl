@@ -45,19 +45,19 @@ void Game::Update(float dt) {}
 void Game::Render() { sprite_renderer_.Render(registry_); }
 
 void Game::SetKeyPressed(uint key) {
-  if (key >= 0 && key < kKeysCount_) {
+  if (key < kKeysCount_) {
     keys_[key] = true;
   }
 }
 
 void Game::SetKeyReleased(uint key) {
-  if (key >= 0 && key < kKeysCount_) {
+  if (key < kKeysCount_) {
     keys_[key] = false;
   }
 }
 
 bool Game::IsKeyPressed(uint key) {
-  if (key >= 0 && key < kKeysCount_) {
+  if (key < kKeysCount_) {
     return keys_[key];
   }
 
