@@ -4,12 +4,20 @@
 
 #include "components.h"
 
+enum class BlockType {
+  EMPTY = 0,
+  UNBREAKABLE = 1,
+  RED,
+  GREEN,
+  BLUE,
+};
+
 class EntityFactory {
  public:
   static void CreatePaddle(entt::registry &registry);
   static void CreateBlock(entt::registry &registry, glm::vec2 position,
-                          int type);
+                          BlockType type);
 
  private:
-  static glm::vec3 GetBlockColor(int type);
+  static glm::vec3 GetBlockColor(BlockType type);
 };

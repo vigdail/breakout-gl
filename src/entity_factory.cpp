@@ -12,14 +12,14 @@ void EntityFactory::CreatePaddle(entt::registry &registry) {
 }
 
 void EntityFactory::CreateBlock(entt::registry &registry, glm::vec2 position,
-                                int type) {
+                                BlockType type) {
   auto entity = registry.create();
   auto transform = Transform(128, 128);
   transform.position = position;
   registry.emplace<Transform>(entity, transform);
   registry.emplace<Block>(entity);
 
-  if (type != 1) {
+  if (type != BlockType::UNBREAKABLE) {
     glm::vec3 color = GetBlockColor(type);
     registry.emplace<Sprite>(entity, ResourceManager::GetTexture("block"),
                              color);
@@ -30,13 +30,13 @@ void EntityFactory::CreateBlock(entt::registry &registry, glm::vec2 position,
   }
 }
 
-glm::vec3 EntityFactory::GetBlockColor(int type) {
+glm::vec3 EntityFactory::GetBlockColor(BlockType type) {
   switch (type) {
-    case 2:
+    case BlockType::RED:
       return glm::vec3(1.0f, 0.0f, 0.0f);
-    case 3:
+    case BlockType::GREEN:
       return glm::vec3(0.0f, 1.0f, 0.0f);
-    case 4:
+    case BlockType::BLUE:
       return glm::vec3(0.0f, 0.0f, 1.0f);
     default:
       return glm::vec3(1.0f);
