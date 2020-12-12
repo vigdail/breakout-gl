@@ -1,53 +1,40 @@
-#include <iostream>
+#include "sprite_renderer.h"
 
 #include <glad/glad.h>
+#include <iostream>
 
-#include "sprite_renderer.h"
 #include "../components.h"
 #include "../resource_manager.h"
 
 SpriteRenderer::SpriteRenderer(unsigned int width, unsigned int height)
-    : projection_(glm::ortho(0.0f, static_cast<float>(width), static_cast<float>(height), 0.0f, -1.0f, 1.0f))
-{
+    : projection_(glm::ortho(0.0f, static_cast<float>(width),
+                             static_cast<float>(height), 0.0f, -1.0f, 1.0f)) {
   InitVAO();
 }
 
-void SpriteRenderer::Render(entt::registry &registry)
-{
+void SpriteRenderer::Render(entt::registry *registry) {
   glActiveTexture(GL_TEXTURE0);
   Shader shader = ResourceManager::GetShader("sprite");
-  shader
-      .Use()
-      .SetMat4("projection", projection_);
+  shader.Use().SetMat4("projection", projection_);
   glBindVertexArray(VAO_);
 
-  auto view = registry.view<Transform, Sprite>();
+  auto view = registry->view<Transform, Sprite>();
 
-  for (auto &entity : view)
-  {
-    auto sprite = registry.get<Sprite>(entity);
+  for (auto &entity : view) {
+    auto sprite = registry->get<Sprite>(entity);
     sprite.texture.Bind();
-    auto transform = registry.get<Transform>(entity);
+    auto transform = registry->get<Transform>(entity);
     glm::mat4 model = transform.Model();
-    shader
-        .SetMat4("model", model)
-        .SetVec3("color", sprite.color);
+    shader.SetMat4("model", model).SetVec3("color", sprite.color);
 
     glDrawArrays(GL_TRIANGLES, 0, 6);
   }
 }
 
-void SpriteRenderer::InitVAO()
-{
-  const float vertices[] = {
-      // pos      // tex
-      0.0f, 1.0f, 0.0f, 1.0f,
-      1.0f, 0.0f, 1.0f, 0.0f,
-      0.0f, 0.0f, 0.0f, 0.0f,
-
-      0.0f, 1.0f, 0.0f, 1.0f,
-      1.0f, 1.0f, 1.0f, 1.0f,
-      1.0f, 0.0f, 1.0f, 0.0f};
+void SpriteRenderer::InitVAO() {
+  const float vertices[] = {0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f,
+                            0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+                            1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f};
 
   glGenVertexArrays(1, &VAO_);
 
@@ -59,9 +46,11 @@ void SpriteRenderer::InitVAO()
 
   glBindVertexArray(VAO_);
   glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 4, (void *)0);
+  glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 4,
+                        static_cast<void *>(0));
   glEnableVertexAttribArray(1);
-  glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 4, (void *)(sizeof(float) * 2));
+  glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 4,
+                        static_cast<void *>(0) + sizeof(float) * 2);
 
   glBindBuffer(GL_ARRAY_BUFFER, 0);
   glBindVertexArray(0);

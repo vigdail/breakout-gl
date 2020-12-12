@@ -1,9 +1,9 @@
-#include <iostream>
-
 #include "application.h"
 
-Application::Application(unsigned int width, unsigned int height) : width_(width), height_(height)
-{
+#include <iostream>
+
+Application::Application(unsigned int width, unsigned int height)
+    : width_(width), height_(height) {
   glfwInit();
 
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -14,8 +14,7 @@ Application::Application(unsigned int width, unsigned int height) : width_(width
   window_ = glfwCreateWindow(width, height, "Breakout GL", nullptr, nullptr);
   glfwMakeContextCurrent(window_);
 
-  if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-  {
+  if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
     std::cout << "Failed to initialize GLAD" << std::endl;
   }
 
@@ -33,16 +32,11 @@ Application::Application(unsigned int width, unsigned int height) : width_(width
   game_ = std::make_unique<Game>(width, height);
 }
 
-Application::~Application()
-{
-  glfwTerminate();
-}
+Application::~Application() { glfwTerminate(); }
 
-void Application::Run()
-{
+void Application::Run() {
   float last_time = 0.0f;
-  while (!glfwWindowShouldClose(window_))
-  {
+  while (!glfwWindowShouldClose(window_)) {
     float current_time = glfwGetTime();
     float delta_time = current_time - last_time;
     last_time = current_time;
@@ -59,24 +53,20 @@ void Application::Run()
   }
 }
 
-void Application::KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode)
-{
+void Application::KeyCallback(GLFWwindow *window, int key, int scancode,
+                              int action, int mode) {
   auto self = static_cast<Application *>(glfwGetWindowUserPointer(window));
-  if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-  {
+  if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
     glfwSetWindowShouldClose(window, true);
   }
-  if (action == GLFW_PRESS)
-  {
+  if (action == GLFW_PRESS) {
     self->game_->SetKeyPressed(key);
-  }
-  else if (action == GLFW_RELEASE)
-  {
+  } else if (action == GLFW_RELEASE) {
     self->game_->SetKeyReleased(key);
   }
 }
 
-void Application::FramebufferSizeCallback(GLFWwindow *window, int width, int height)
-{
+void Application::FramebufferSizeCallback(GLFWwindow *window, int width,
+                                          int height) {
   glViewport(0, 0, width, height);
 }

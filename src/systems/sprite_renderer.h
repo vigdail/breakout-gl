@@ -1,18 +1,17 @@
 #pragma once
 
+#include <entt/entt.hpp>
 #include <glm/glm.hpp>
 
-#include <entt/entt.hpp>
 #include "../shader.h"
 
-class SpriteRenderer
-{
-public:
+class SpriteRenderer {
+ public:
   SpriteRenderer(unsigned int width, unsigned int height);
-  void Render(entt::registry &registry);
+  void Render(entt::registry *registry);
 
-private:
-  unsigned int VAO_;
+ private:
   void InitVAO();
+  unsigned int VAO_;
   glm::mat4 projection_;
 };

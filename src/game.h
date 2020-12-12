@@ -5,16 +5,14 @@
 #include "resource_manager.h"
 #include "systems/sprite_renderer.h"
 
-enum GameState
-{
+enum GameState {
   GAME_MENU,
   GAME_ACTIVE,
   GAME_WIN,
 };
 
-class Game
-{
-public:
+class Game {
+ public:
   Game(uint width, uint height);
   ~Game();
   void LoadAssets();
@@ -25,7 +23,7 @@ public:
   void SetKeyReleased(uint key);
   bool IsKeyPressed(uint key);
 
-private:
+ private:
   static const uint kKeysCount_ = 1024;
   entt::registry registry_;
   uint width_;

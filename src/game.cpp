@@ -1,16 +1,19 @@
-#include <iostream>
+#include "game.h"
 
 #include <glm/glm.hpp>
+#include <iostream>
 
 #include "application.h"
-#include "game.h"
 #include "entity_factory.h"
 
 const uint Game::kKeysCount_;
 
 Game::Game(uint width, uint height)
-    : width_(width), height_(height), state_(GAME_MENU), keys_(), sprite_renderer_(width, height)
-{
+    : width_(width),
+      height_(height),
+      state_(GAME_MENU),
+      keys_(),
+      sprite_renderer_(width, height) {
   LoadAssets();
 
   EntityFactory::CreatePaddle(registry_);
@@ -19,53 +22,38 @@ Game::Game(uint width, uint height)
   EntityFactory::CreateBlock(registry_, glm::vec2(256.0f), 4);
 }
 
-Game::~Game()
-{
-  ResourceManager::Clear();
-}
+Game::~Game() { ResourceManager::Clear(); }
 
-void Game::LoadAssets()
-{
-  ResourceManager::LoadShader("sprite", "../assets/shaders/sprite.vs", "../assets/shaders/sprite.fs");
+void Game::LoadAssets() {
+  ResourceManager::LoadShader("sprite", "../assets/shaders/sprite.vs",
+                              "../assets/shaders/sprite.fs");
 
   ResourceManager::LoadTexture("paddle", "../assets/textures/paddle.png");
   ResourceManager::LoadTexture("block", "../assets/textures/block.png");
 }
 
-void Game::ProcessInput(float dt)
-{
+void Game::ProcessInput(float dt) {
   //
 }
 
-void Game::Update(float dt)
-{
-}
+void Game::Update(float dt) {}
 
-void Game::Render()
-{
-  sprite_renderer_.Render(registry_);
-}
+void Game::Render() { sprite_renderer_.Render(&registry_); }
 
-void Game::SetKeyPressed(uint key)
-{
-  if (key >= 0 && key < kKeysCount_)
-  {
+void Game::SetKeyPressed(uint key) {
+  if (key >= 0 && key < kKeysCount_) {
     keys_[key] = true;
   }
 }
 
-void Game::SetKeyReleased(uint key)
-{
-  if (key >= 0 && key < kKeysCount_)
-  {
+void Game::SetKeyReleased(uint key) {
+  if (key >= 0 && key < kKeysCount_) {
     keys_[key] = false;
   }
 }
 
-bool Game::IsKeyPressed(uint key)
-{
-  if (key >= 0 && key < kKeysCount_)
-  {
+bool Game::IsKeyPressed(uint key) {
+  if (key >= 0 && key < kKeysCount_) {
     return keys_[key];
   }
 

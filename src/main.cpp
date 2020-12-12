@@ -1,10 +1,6 @@
-#include <iostream>
-#include <string>
-
 #include "application.h"
 
-int main()
-{
+int main() {
   Application app;
   app.Run();
 }
