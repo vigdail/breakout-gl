@@ -8,7 +8,7 @@
 class SpriteRenderer {
  public:
   SpriteRenderer(unsigned int width, unsigned int height);
-  void Render(entt::registry *registry);
+  void Render(entt::registry &registry);
 
  private:
   void InitVAO();

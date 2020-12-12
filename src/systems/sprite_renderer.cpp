@@ -12,18 +12,18 @@ SpriteRenderer::SpriteRenderer(unsigned int width, unsigned int height)
   InitVAO();
 }
 
-void SpriteRenderer::Render(entt::registry *registry) {
+void SpriteRenderer::Render(entt::registry &registry) {
   glActiveTexture(GL_TEXTURE0);
   Shader shader = ResourceManager::GetShader("sprite");
   shader.Use().SetMat4("projection", projection_);
   glBindVertexArray(VAO_);
 
-  auto view = registry->view<Transform, Sprite>();
+  auto view = registry.view<Transform, Sprite>();
 
   for (auto &entity : view) {
-    auto sprite = registry->get<Sprite>(entity);
+    auto sprite = registry.get<Sprite>(entity);
     sprite.texture.Bind();
-    auto transform = registry->get<Transform>(entity);
+    auto transform = registry.get<Transform>(entity);
     glm::mat4 model = transform.Model();
     shader.SetMat4("model", model).SetVec3("color", sprite.color);
 

@@ -38,7 +38,7 @@ void Game::ProcessInput(float dt) {
 
 void Game::Update(float dt) {}
 
-void Game::Render() { sprite_renderer_.Render(&registry_); }
+void Game::Render() { sprite_renderer_.Render(registry_); }
 
 void Game::SetKeyPressed(uint key) {
   if (key >= 0 && key < kKeysCount_) {
