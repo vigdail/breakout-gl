@@ -6,6 +6,8 @@
 
 #include "resource_manager.h"
 #include "systems/sprite_renderer.h"
+#include "systems/input_system.h"
+#include "systems/move_system.h"
 #include "level.h"
 
 enum GameState {
@@ -36,4 +38,6 @@ class Game {
   std::vector<Level> levels_;
 
   SpriteRenderer sprite_renderer_;
+  InputSystem input_system_;
+  MoveSystem move_system_;
 };

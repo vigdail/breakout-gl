@@ -10,6 +10,7 @@ void EntityFactory::CreatePaddle(entt::registry &registry) {
   transform.anchor = glm::vec2(0.5, 1.0f);
   registry.emplace<Transform>(entity, transform);
   registry.emplace<Sprite>(entity, ResourceManager::GetTexture("paddle"));
+  registry.emplace<Player>(entity);
 }
 
 void EntityFactory::CreateBlock(entt::registry &registry, glm::vec2 position,

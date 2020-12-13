@@ -16,8 +16,10 @@ Game::Game(uint width, uint height)
       height_(height),
       state_(GAME_MENU),
       keys_(),
+      levels_(),
       sprite_renderer_(width, height),
-      levels_() {
+      input_system_(),
+      move_system_() {
   LoadAssets();
 
   registry_.set<WindowDimensions>(width, height);
@@ -49,11 +51,9 @@ void Game::LoadAssets() {
   }
 }
 
-void Game::ProcessInput(float dt) {
-  //
-}
+void Game::ProcessInput(float dt) { input_system_.Run(registry_, keys_); }
 
-void Game::Update(float dt) {}
+void Game::Update(float dt) { move_system_.Run(registry_, dt); }
 
 void Game::Render() { sprite_renderer_.Render(registry_); }
 

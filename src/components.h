@@ -36,7 +36,14 @@ struct Sprite {
       : texture(texture), color(color), z_index(0) {}
 };
 
+struct Velocity {
+  glm::vec2 value;
+  Velocity() : value(0.0f) {}
+  explicit Velocity(glm::vec2 value) : value(value) {}
+};
+
 struct Renderable {};
+struct Player {};
 
 struct Block {};
 
