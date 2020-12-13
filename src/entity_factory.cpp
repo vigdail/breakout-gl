@@ -13,20 +13,23 @@ void EntityFactory::CreatePaddle(entt::registry &registry) {
 
 void EntityFactory::CreateBlock(entt::registry &registry, glm::vec2 position,
                                 BlockType type) {
+  if (type == BlockType::EMPTY) {
+    return;
+  }
   auto entity = registry.create();
   auto transform = Transform(128, 128);
   transform.position = position;
   registry.emplace<Transform>(entity, transform);
   registry.emplace<Block>(entity);
 
-  if (type != BlockType::UNBREAKABLE) {
-    glm::vec3 color = GetBlockColor(type);
-    registry.emplace<Sprite>(entity, ResourceManager::GetTexture("block"),
-                             color);
-  } else {
+  if (type == BlockType::UNBREAKABLE) {
     registry.emplace<Sprite>(entity,
                              ResourceManager::GetTexture("block_solid"));
     registry.emplace<Unbreakable>(entity);
+  } else {
+    glm::vec3 color = GetBlockColor(type);
+    registry.emplace<Sprite>(entity, ResourceManager::GetTexture("block"),
+                             color);
   }
 }
 

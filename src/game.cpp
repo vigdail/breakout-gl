@@ -13,15 +13,13 @@ Game::Game(uint width, uint height)
       height_(height),
       state_(GAME_MENU),
       keys_(),
-      sprite_renderer_(width, height) {
+      sprite_renderer_(width, height),
+      levels_() {
   LoadAssets();
 
   EntityFactory::CreatePaddle(registry_);
-  EntityFactory::CreateBlock(registry_, glm::vec2(0.0f), BlockType::RED);
-  EntityFactory::CreateBlock(registry_, glm::vec2(128.0f), BlockType::GREEN);
-  EntityFactory::CreateBlock(registry_, glm::vec2(256.0f), BlockType::BLUE);
-  EntityFactory::CreateBlock(registry_, glm::vec2(0.0f, 128.0f),
-                             BlockType::UNBREAKABLE);
+
+  levels_[0].Init(registry_);
 }
 
 Game::~Game() { ResourceManager::Clear(); }
@@ -34,6 +32,10 @@ void Game::LoadAssets() {
   ResourceManager::LoadTexture("block", "../assets/textures/block.png");
   ResourceManager::LoadTexture("block_solid",
                                "../assets/textures/block_solid.png");
+
+  Level level;
+  level.Load("../assets/levels/level1.txt");
+  levels_.push_back(level);
 }
 
 void Game::ProcessInput(float dt) {

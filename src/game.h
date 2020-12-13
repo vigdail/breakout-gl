@@ -1,9 +1,12 @@
 #pragma once
 
+#include <vector>
+
 #include <entt/entt.hpp>
 
 #include "resource_manager.h"
 #include "systems/sprite_renderer.h"
+#include "level.h"
 
 enum GameState {
   GAME_MENU,
@@ -30,6 +33,7 @@ class Game {
   uint height_;
   GameState state_;
   bool keys_[kKeysCount_];
+  std::vector<Level> levels_;
 
   SpriteRenderer sprite_renderer_;
 };
