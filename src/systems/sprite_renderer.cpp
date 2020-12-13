@@ -13,6 +13,12 @@ SpriteRenderer::SpriteRenderer(unsigned int width, unsigned int height)
 }
 
 void SpriteRenderer::Render(entt::registry &registry) {
+  // @TODO: Need to cache order, or at least move this to separate system
+  registry.sort<Sprite>([](const auto &lhs, const auto &rhs) {
+    return lhs.z_index < rhs.z_index;
+  });
+  registry.sort<Transform, Sprite>();
+
   glActiveTexture(GL_TEXTURE0);
   Shader shader = ResourceManager::GetShader("sprite");
   shader.Use().SetMat4("projection", projection_);

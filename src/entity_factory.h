@@ -18,6 +18,7 @@ class EntityFactory {
   static void CreatePaddle(entt::registry &registry);
   static void CreateBlock(entt::registry &registry, glm::vec2 position,
                           glm::vec2 size, BlockType type);
+  static void CreateBackground(entt::registry &registry);
 
  private:
   static glm::vec3 GetBlockColor(BlockType type);

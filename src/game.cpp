@@ -22,6 +22,7 @@ Game::Game(uint width, uint height)
 
   registry_.set<WindowDimensions>(width, height);
 
+  EntityFactory::CreateBackground(registry_);
   EntityFactory::CreatePaddle(registry_);
 
   levels_[0].Init(registry_);

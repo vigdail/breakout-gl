@@ -31,8 +31,9 @@ struct Transform {
 struct Sprite {
   Texture texture;
   glm::vec3 color;
+  int z_index;
   explicit Sprite(Texture texture, glm::vec3 color = glm::vec3(1.0f))
-      : texture(texture), color(color) {}
+      : texture(texture), color(color), z_index(0) {}
 };
 
 struct Renderable {};

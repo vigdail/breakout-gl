@@ -34,6 +34,15 @@ void EntityFactory::CreateBlock(entt::registry &registry, glm::vec2 position,
   }
 }
 
+void EntityFactory::CreateBackground(entt::registry &registry) {
+  auto entity = registry.create();
+  WindowDimensions dimensions = registry.ctx<WindowDimensions>();
+  registry.emplace<Transform>(entity, dimensions.width, dimensions.height);
+  auto &sprite = registry.emplace<Sprite>(
+      entity, ResourceManager::GetTexture("background"));
+  sprite.zIndex = -10;
+}
+
 glm::vec3 EntityFactory::GetBlockColor(BlockType type) {
   switch (type) {
     case BlockType::GREEN:
