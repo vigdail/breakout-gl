@@ -1,5 +1,6 @@
 #include "level.h"
 #include "entity_factory.h"
+#include "resources.h"
 
 #include <glm/glm.hpp>
 #include <fstream>
@@ -28,12 +29,22 @@ void Level::Init(entt::registry& registry) {
     registry.destroy(entity);
   }
 
+  WindowDimensions dimensions = registry.ctx<WindowDimensions>();
+  float block_width =
+      static_cast<float>(dimensions.width) / static_cast<float>(width_);
+  float block_height = static_cast<float>(dimensions.height) /
+                       static_cast<float>(height_) / 2.0f;
+
+  registry.set<BlockSize>(block_width, block_height);
+
   for (int i = 0; i < width_; i++) {
     for (int j = 0; j < height_; j++) {
-      float x = i * 128.0f;
-      float y = j * 128.0f;
+      float x = i * block_width;
+      float y = j * block_height;
       int index = width_ * j + i;
-      EntityFactory::CreateBlock(registry, glm::vec2(x, y), tiles_[index]);
+      EntityFactory::CreateBlock(registry, glm::vec2(x, y),
+                                 glm::vec2(block_width, block_height),
+                                 tiles_[index]);
     }
   }
 }

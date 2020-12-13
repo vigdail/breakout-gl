@@ -7,16 +7,17 @@
 enum class BlockType {
   EMPTY = 0,
   UNBREAKABLE = 1,
-  RED,
   GREEN,
   BLUE,
+  YELLOW,
+  ORANGE,
 };
 
 class EntityFactory {
  public:
   static void CreatePaddle(entt::registry &registry);
   static void CreateBlock(entt::registry &registry, glm::vec2 position,
-                          BlockType type);
+                          glm::vec2 size, BlockType type);
 
  private:
   static glm::vec3 GetBlockColor(BlockType type);

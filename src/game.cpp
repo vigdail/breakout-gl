@@ -2,8 +2,11 @@
 
 #include <glm/glm.hpp>
 #include <iostream>
+#include <string>
 
 #include "application.h"
+#include "resources.h"
+#include "components.h"
 #include "entity_factory.h"
 
 const uint Game::kKeysCount_;
@@ -16,6 +19,8 @@ Game::Game(uint width, uint height)
       sprite_renderer_(width, height),
       levels_() {
   LoadAssets();
+
+  registry_.set<WindowDimensions>(width, height);
 
   EntityFactory::CreatePaddle(registry_);
 
@@ -32,10 +37,15 @@ void Game::LoadAssets() {
   ResourceManager::LoadTexture("block", "../assets/textures/block.png");
   ResourceManager::LoadTexture("block_solid",
                                "../assets/textures/block_solid.png");
+  ResourceManager::LoadTexture("background",
+                               "../assets/textures/background.jpg");
 
-  Level level;
-  level.Load("../assets/levels/level1.txt");
-  levels_.push_back(level);
+  for (int i = 1; i <= 4; i++) {
+    std::string s = "../assets/levels/" + std::to_string(i) + ".lvl";
+    Level level;
+    level.Load(s);
+    levels_.push_back(level);
+  }
 }
 
 void Game::ProcessInput(float dt) {
