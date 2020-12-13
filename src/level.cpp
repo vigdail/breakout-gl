@@ -13,9 +13,11 @@ void Level::Load(std::filesystem::path&& file) {
   }
 
   stream >> width_ >> height_;
-  tiles_ = std::vector<int>(width_ * height_);
+  tiles_ = std::vector<BlockType>(width_ * height_);
   int i = 0;
-  while (i < tiles_.size() && stream >> tiles_[i]) {
+  int temp;
+  while (i < tiles_.size() && stream >> temp) {
+    tiles_[i] = static_cast<BlockType>(temp);
     i++;
   }
 }
@@ -31,8 +33,7 @@ void Level::Init(entt::registry& registry) {
       float x = i * 128.0f;
       float y = j * 128.0f;
       int index = width_ * j + i;
-      EntityFactory::CreateBlock(registry, glm::vec2(x, y),
-                                 static_cast<BlockType>(tiles_[index]));
+      EntityFactory::CreateBlock(registry, glm::vec2(x, y), tiles_[index]);
     }
   }
 }

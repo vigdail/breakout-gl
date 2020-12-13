@@ -2,12 +2,13 @@
 
 #include <filesystem>
 #include <vector>
+#include "entity_factory.h"
 
 #include <entt/entt.hpp>
 
 class Level {
  private:
-  std::vector<int> tiles_;
+  std::vector<BlockType> tiles_;
   int width_;
   int height_;
 
