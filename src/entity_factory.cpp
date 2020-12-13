@@ -40,7 +40,7 @@ void EntityFactory::CreateBackground(entt::registry &registry) {
   registry.emplace<Transform>(entity, dimensions.width, dimensions.height);
   auto &sprite = registry.emplace<Sprite>(
       entity, ResourceManager::GetTexture("background"));
-  sprite.zIndex = -10;
+  sprite.z_index = -10;
 }
 
 glm::vec3 EntityFactory::GetBlockColor(BlockType type) {
