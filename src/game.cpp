@@ -26,6 +26,9 @@ Game::Game(uint width, uint height)
 
   EntityFactory::CreateBackground(registry_);
   EntityFactory::CreatePaddle(registry_);
+  auto ball_entity = EntityFactory::CreateBall(
+      registry_, glm::vec2(width / 2.0f, height - 100.0f));
+  registry_.emplace<Velocity>(ball_entity, glm::vec2(50.0f, -100.f));
 
   levels_[0].Init(registry_);
 }
@@ -37,6 +40,7 @@ void Game::LoadAssets() {
                               "../assets/shaders/sprite.fs");
 
   ResourceManager::LoadTexture("paddle", "../assets/textures/paddle.png");
+  ResourceManager::LoadTexture("ball", "../assets/textures/ball.png");
   ResourceManager::LoadTexture("block", "../assets/textures/block.png");
   ResourceManager::LoadTexture("block_solid",
                                "../assets/textures/block_solid.png");

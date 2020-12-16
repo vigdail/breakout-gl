@@ -44,6 +44,7 @@ struct Velocity {
 
 struct Renderable {};
 struct Player {};
+struct Ball {};
 
 struct Block {};
 

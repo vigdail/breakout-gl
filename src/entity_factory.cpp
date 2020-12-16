@@ -44,6 +44,18 @@ void EntityFactory::CreateBackground(entt::registry &registry) {
   sprite.z_index = -10;
 }
 
+entt::entity EntityFactory::CreateBall(entt::registry &registry,
+                                       glm::vec2 position) {
+  auto entity = registry.create();
+  auto &transform = registry.emplace<Transform>(entity, 32.0f, 32.0f);
+  transform.position = position;
+  auto &sprite =
+      registry.emplace<Sprite>(entity, ResourceManager::GetTexture("ball"));
+  sprite.z_index = 10;
+
+  return entity;
+}
+
 glm::vec3 EntityFactory::GetBlockColor(BlockType type) {
   switch (type) {
     case BlockType::GREEN:
