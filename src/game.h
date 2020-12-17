@@ -8,6 +8,7 @@
 #include "systems/sprite_renderer.h"
 #include "systems/input_system.h"
 #include "systems/move_system.h"
+#include "systems/screen_bounds_system.h"
 #include "level.h"
 
 enum GameState {
@@ -40,4 +41,5 @@ class Game {
   SpriteRenderer sprite_renderer_;
   InputSystem input_system_;
   MoveSystem move_system_;
+  ScreenBoundsSystem screen_bounds_system_;
 };

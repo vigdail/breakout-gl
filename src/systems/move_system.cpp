@@ -5,8 +5,6 @@
 #include <GLFW/glfw3.h>
 
 void MoveSystem::Run(entt::registry &registry, float dt) {
-  WindowDimensions dimensions = registry.ctx<WindowDimensions>();
-
   auto view = registry.view<Transform, Velocity>();
 
   for (auto entity : view) {

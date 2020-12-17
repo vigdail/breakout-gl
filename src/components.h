@@ -26,6 +26,20 @@ struct Transform {
 
     return model;
   }
+
+  float Left() const { return position.x - anchor.x * size.x; }
+  float Right() const { return position.x + (1.0f - anchor.x) * size.x; }
+  float Top() const { return position.y - anchor.y * size.y; }
+  float Bottom() const { return position.y + (1.0f - anchor.y) * size.y; }
+
+  void SetLeft(float left) { position.x = left + anchor.x * size.x; }
+  void SetRight(float right) {
+    position.x = right - (1.0f - anchor.x) * size.x;
+  }
+  void SetTop(float top) { position.y = top + anchor.y * size.y; }
+  void SetBottom(float bottom) {
+    position.y = bottom - (1.0f - anchor.y) * size.y;
+  }
 };
 
 struct Sprite {
