@@ -40,6 +40,12 @@ struct Transform {
   void SetBottom(float bottom) {
     position.y = bottom - (1.0f - anchor.y) * size.y;
   }
+
+  glm::vec2 Center() const {
+    float x = (Left() + Right()) / 2.0f;
+    float y = (Top() + Bottom()) / 2.0f;
+    return glm::vec2(x, y);
+  }
 };
 
 struct Sprite {
@@ -59,6 +65,7 @@ struct Velocity {
 struct Renderable {};
 struct Player {};
 struct Ball {};
+struct Collider {};
 
 struct Block {};
 

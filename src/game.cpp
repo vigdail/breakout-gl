@@ -20,7 +20,8 @@ Game::Game(uint width, uint height)
       sprite_renderer_(width, height),
       input_system_(),
       move_system_(),
-      screen_bounds_system_() {
+      screen_bounds_system_(),
+      collision_system_() {
   LoadAssets();
 
   registry_.set<WindowDimensions>(width, height);
@@ -28,8 +29,8 @@ Game::Game(uint width, uint height)
   EntityFactory::CreateBackground(registry_);
   EntityFactory::CreatePaddle(registry_);
   auto ball_entity = EntityFactory::CreateBall(
-      registry_, glm::vec2(width / 2.0f, height - 100.0f));
-  registry_.emplace<Velocity>(ball_entity, glm::vec2(50.0f, -100.f));
+      registry_, glm::vec2(width / 2.0f, height - 50.0f));
+  registry_.emplace<Velocity>(ball_entity, glm::vec2(100.0f, -100.f));
 
   levels_[0].Init(registry_);
 }
@@ -61,6 +62,7 @@ void Game::ProcessInput(float dt) { input_system_.Run(registry_, keys_); }
 void Game::Update(float dt) {
   move_system_.Run(registry_, dt);
   screen_bounds_system_.Run(registry_);
+  collision_system_.Run(registry_);
 }
 
 void Game::Render() { sprite_renderer_.Render(registry_); }

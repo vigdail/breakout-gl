@@ -11,6 +11,7 @@ void EntityFactory::CreatePaddle(entt::registry &registry) {
   registry.emplace<Transform>(entity, transform);
   registry.emplace<Sprite>(entity, ResourceManager::GetTexture("paddle"));
   registry.emplace<Player>(entity);
+  registry.emplace<Collider>(entity);
 }
 
 void EntityFactory::CreateBlock(entt::registry &registry, glm::vec2 position,
@@ -23,6 +24,7 @@ void EntityFactory::CreateBlock(entt::registry &registry, glm::vec2 position,
   transform.position = position;
   registry.emplace<Transform>(entity, transform);
   registry.emplace<Block>(entity);
+  registry.emplace<Collider>(entity);
 
   if (type == BlockType::UNBREAKABLE) {
     registry.emplace<Sprite>(entity,
@@ -47,8 +49,10 @@ void EntityFactory::CreateBackground(entt::registry &registry) {
 entt::entity EntityFactory::CreateBall(entt::registry &registry,
                                        glm::vec2 position) {
   auto entity = registry.create();
+  registry.emplace<Ball>(entity);
   auto &transform = registry.emplace<Transform>(entity, 32.0f, 32.0f);
   transform.position = position;
+  transform.anchor = glm::vec2(0.5f);
   auto &sprite =
       registry.emplace<Sprite>(entity, ResourceManager::GetTexture("ball"));
   sprite.z_index = 10;
