@@ -10,6 +10,7 @@
 #include "systems/move_system.h"
 #include "systems/screen_bounds_system.h"
 #include "systems/collision_system.h"
+#include "systems/collision_resolution_system.h"
 #include "level.h"
 
 enum GameState {
@@ -44,4 +45,5 @@ class Game {
   MoveSystem move_system_;
   ScreenBoundsSystem screen_bounds_system_;
   CollisionSystem collision_system_;
+  CollisionResolutionSystem collision_resolution_system_;
 };

@@ -21,7 +21,8 @@ Game::Game(uint width, uint height)
       input_system_(),
       move_system_(),
       screen_bounds_system_(),
-      collision_system_() {
+      collision_system_(),
+      collision_resolution_system_() {
   LoadAssets();
 
   registry_.set<WindowDimensions>(width, height);
@@ -63,6 +64,7 @@ void Game::Update(float dt) {
   move_system_.Run(registry_, dt);
   screen_bounds_system_.Run(registry_);
   collision_system_.Run(registry_);
+  collision_resolution_system_.Run(registry_);
 }
 
 void Game::Render() { sprite_renderer_.Render(registry_); }

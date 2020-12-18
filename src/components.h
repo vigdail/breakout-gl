@@ -3,7 +3,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "./texture.h"
+#include "texture.h"
+#include "direction.h"
 
 struct Transform {
   glm::vec2 position;
@@ -60,6 +61,11 @@ struct Velocity {
   glm::vec2 value;
   Velocity() : value(0.0f) {}
   explicit Velocity(glm::vec2 value) : value(value) {}
+};
+
+struct Collision {
+  Direction direction;
+  glm::vec2 position;
 };
 
 struct Renderable {};
