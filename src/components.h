@@ -68,6 +68,12 @@ struct Collision {
   glm::vec2 position;
 };
 
+struct PaddleCollision {
+  Direction direction;
+  glm::vec2 position;
+  entt::entity paddle;
+};
+
 struct Renderable {};
 struct Player {};
 struct Ball {};

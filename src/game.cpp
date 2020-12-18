@@ -31,7 +31,7 @@ Game::Game(uint width, uint height)
   EntityFactory::CreatePaddle(registry_);
   auto ball_entity = EntityFactory::CreateBall(
       registry_, glm::vec2(width / 2.0f, height - 50.0f));
-  registry_.emplace<Velocity>(ball_entity, glm::vec2(100.0f, -100.f));
+  registry_.emplace<Velocity>(ball_entity, glm::vec2(200.0f, -200.f));
 
   levels_[0].Init(registry_);
 }

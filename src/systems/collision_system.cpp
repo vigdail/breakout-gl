@@ -45,8 +45,14 @@ void CollisionSystem::Run(entt::registry &registry) {
 
       if (glm::length(difference) < ball_transform.size.x / 2.0f) {
         auto collision_entity = registry.create();
-        auto collision = registry.emplace<Collision>(
-            collision_entity, VectorDirection(difference), difference);
+        if (registry.has<Player>(entity)) {
+          registry.emplace<PaddleCollision>(collision_entity,
+                                            VectorDirection(difference),
+                                            difference, entity);
+        } else {
+          registry.emplace<Collision>(collision_entity,
+                                      VectorDirection(difference), difference);
+        }
 
         if (registry.has<Block>(entity) && !registry.has<Unbreakable>(entity)) {
           registry.destroy(entity);
