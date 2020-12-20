@@ -69,9 +69,9 @@ void CollisionResolutionSystem::CollideWithPaddles(entt::registry &registry) {
 
       float percentage = distance / (transform.size.x / 2.0f);
 
+      glm::vec2 initial_velocity = registry.ctx<State>().ball_initial_velocity;
       glm::vec2 old_velocity = velocity.value;
-      // @TODO: Make default ball velocity to be context variable
-      velocity.value.x = 200.0f * percentage * 2.0f;
+      velocity.value.x = initial_velocity.x * percentage * 2.0f;
       velocity.value.y *= -1.0f;
       velocity.value =
           glm::normalize(velocity.value) * glm::length(old_velocity);

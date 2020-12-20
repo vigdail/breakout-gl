@@ -26,12 +26,14 @@ Game::Game(uint width, uint height)
   LoadAssets();
 
   registry_.set<WindowDimensions>(width, height);
+  registry_.set<State>();
 
   EntityFactory::CreateBackground(registry_);
   EntityFactory::CreatePaddle(registry_);
   auto ball_entity = EntityFactory::CreateBall(
       registry_, glm::vec2(width / 2.0f, height - 50.0f));
-  registry_.emplace<Velocity>(ball_entity, glm::vec2(200.0f, -200.f));
+  registry_.emplace<Velocity>(ball_entity,
+                              registry_.ctx<State>().ball_initial_velocity);
 
   levels_[0].Init(registry_);
 }
